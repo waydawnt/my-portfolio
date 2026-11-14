@@ -6,6 +6,7 @@ import links from './links.json';
 import { initPaths } from './ui/paths.js';
 import { initSceneUI } from './ui/scene-ui.js';
 import { initLanterns } from './ui/lanterns.js';
+import { initTerminal } from './ui/terminal.js';
 
 const doc = document.documentElement;
 const $ = (s, r = document) => r.querySelector(s);
@@ -181,10 +182,22 @@ function progress() {
 const sceneUI = initSceneUI({ content, links });
 const lanterns = initLanterns({ content, links, sceneUI });
 
+// The terminal opens from the monitor (3D click, its keyboard button, or the button on the License page)
+// and hands focus back to the monitor when it closes.
+const monitorBtn = $('.so-btn[data-hotspot="monitor"]');
+const terminal = initTerminal({
+  content,
+  links,
+  onClose: (opener) => (opener && opener.isConnected ? opener : monitorBtn).focus({ preventScroll: true }),
+});
+sceneUI.handle('monitor', (id, { from }) => { sceneUI.close(); terminal.open(from); });
+$('[data-open-terminal]').addEventListener('click', (e) => terminal.open(e.currentTarget));
+
 let finishCelebrated = false;
 function setStep(i) {
   current = i;
   sceneUI.close();
+  terminal.close();
   const s = content.steps[ids[i]];
   tbStep.textContent = `${content.ui.step} ${i + 1} ${content.ui.of} ${N}: ${s.nav}`;
   dots.forEach((d, k) => {
@@ -305,6 +318,7 @@ function enterClassic(remember = true) {
   doc.classList.remove('mode-3d', 'is-intro');
   world?.stop();
   sceneUI.close();
+  terminal.close();
   loader.hidden = true;
   $('#uac').hidden = true;
   install.complete();

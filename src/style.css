@@ -337,6 +337,45 @@ html.mode-3d:not(.is-intro) .hud {
 .hud.is-complete .hud-icon { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
 @media (max-width: 760px) { html.mode-3d:not(.is-intro) .hud { top: 52px; right: 8px; font-size: 12px; background: rgba(7, 11, 28, 0.94); } }
 
+/* ---------- PowerShell terminal ---------- */
+.term-open { display: none; }
+html.mode-3d .term-open { display: block; }
+.term-glyph { font: 700 12px/1 var(--mono); color: var(--accent-strong); }
+.term {
+  position: fixed; z-index: 32; right: 24px; bottom: 84px; width: min(540px, calc(100vw - 48px));
+  height: min(400px, calc(100vh - 160px)); display: flex; flex-direction: column;
+  background: #071226; border: 1px solid var(--line-strong); border-radius: 10px; overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6); font: 13.5px/1.5 var(--mono);
+}
+.term-bar { position: relative; display: flex; align-items: center; gap: 8px; padding: 8px 44px 8px 12px; background: #12305c; }
+.term-bar h2 { font: 600 13px/1.3 var(--font); letter-spacing: 0; }
+.term-bar .card-close { top: 2px; right: 4px; }
+.term-log { flex: 1; overflow: auto; padding: 10px 12px; color: #dfe8ff; overscroll-behavior: contain; }
+.term-log:focus-visible { outline-offset: -3px; }
+.term-line { white-space: pre-wrap; overflow-wrap: anywhere; }
+.term-cmd { color: #fff; }
+.term-strong { color: var(--accent-strong); }
+.term-dim { color: #a9b6dc; }
+.term-error { color: #ff9c9c; }
+.term-log a { color: #9fd0ff; }
+.term-sugg { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 10px; border-top: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); }
+.term-chip {
+  font: 12.5px/1.2 var(--mono); color: #dfe8ff; padding: 6px 9px; min-height: 30px; cursor: pointer;
+  background: rgba(159, 208, 255, 0.1); border: 1px solid rgba(159, 208, 255, 0.4); border-radius: 5px;
+}
+.term-chip:hover { background: rgba(159, 208, 255, 0.22); }
+.term-form { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-top: 1px solid var(--line); }
+.term-prompt { color: var(--accent-strong); white-space: nowrap; }
+#term-input {
+  flex: 1; min-width: 0; background: transparent; border: 0; color: #fff; font: inherit; padding: 4px 2px;
+  caret-color: var(--accent);
+}
+#term-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+@media (max-width: 760px) {
+  .term { left: 8px; right: 8px; bottom: calc(68px + env(safe-area-inset-bottom)); width: auto; height: min(430px, 62vh); font-size: 12.5px; }
+  #term-input { font-size: 16px; } /* stops iOS zooming the page on focus */
+}
+
 /* Classic view hides wizard-only controls */
 .wizard-foot, [data-go], [data-replay], #scene { display: none; }
 html:not(.mode-3d) .page-actions { display: none; }

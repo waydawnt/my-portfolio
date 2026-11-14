@@ -554,7 +554,8 @@
         "id": "monitor",
         "step": "license",
         "title": "Retro monitor",
-        "text": "I started learning to code at 17, because I wanted to make my own video games."
+        "text": "I started learning to code at 17, because I wanted to make my own video games.",
+        "button": "Open PowerShell terminal (retro monitor)"
       },
       {
         "id": "comp-packaging",
@@ -665,6 +666,53 @@
       "I also have some knowledge of Unreal Engine.",
       "Older projects of mine also used Kotlin, Express and Office 365.",
       "J-Station has soft, neumorphic style buttons and a mini player at the bottom of the screen."
+    ]
+  },
+  "terminal": {
+    "title": "PowerShell · Vedant Setup",
+    "open": "Open PowerShell terminal",
+    "close": "Close terminal",
+    "prompt": "PS C:\\Vedant>",
+    "inputLabel": "Type a command and press Enter",
+    "outputLabel": "Terminal output",
+    "suggestLabel": "Commands you can run",
+    "banner": [
+      "Vedant Setup PowerShell. A pretend terminal: it only reads this portfolio.",
+      "Type a command, or click one of the buttons below. Start with Get-Help."
+    ],
+    "helpIntro": "Available commands:",
+    "commands": [
+      {
+        "name": "Get-Help",
+        "about": "Lists the commands."
+      },
+      {
+        "name": "Get-Skills",
+        "about": "Lists skills by group."
+      },
+      {
+        "name": "Get-Projects",
+        "about": "Lists projects with links."
+      },
+      {
+        "name": "Get-Experience",
+        "about": "Lists roles in order."
+      },
+      {
+        "name": "Start-Process globalwishes",
+        "about": "Opens globalwishes.in in a new tab."
+      },
+      {
+        "name": "Get-Contact",
+        "about": "Shows how to get in touch."
+      }
+    ],
+    "starting": "Starting process: opening globalwishes.in in a new tab.",
+    "startLink": "Open globalwishes.in",
+    "startUsage": "Start-Process : Only one process can be started here. Usage: Start-Process globalwishes",
+    "unknown": [
+      "{cmd} : The term '{cmd}' is not recognized as the name of a cmdlet on this portfolio.",
+      "Nothing was run. Try Get-Help, or click a command below."
     ]
   }
 }

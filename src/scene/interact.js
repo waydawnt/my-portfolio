@@ -104,6 +104,7 @@ export function createInteraction({ camera, reduce, low }) {
     if (!enabled || !e.isPrimary || e.button > 0) return;
     if (e.target.closest?.(UI)) return;
     ptr.down = true;
+    ptr.clickOK = false;
     ptr.dragging = false;
     ptr.touch = e.pointerType !== 'mouse';
     ptr.sx = e.clientX;
@@ -115,7 +116,14 @@ export function createInteraction({ camera, reduce, low }) {
     ptr.down = false;
     ptr.dragging = false;
     document.documentElement.classList.remove('scene-dragging');
-    if (wasDrag || e.type === 'pointercancel') return;
+    ptr.clickOK = !wasDrag && e.type !== 'pointercancel';
+  };
+  // Selection happens on `click`, not pointerup: on touch screens the browser's own focus
+  // handling runs between the two and would otherwise steal focus from whatever just opened.
+  const onClick = (e) => {
+    if (!ptr.clickOK) return;
+    ptr.clickOK = false;
+    if (!enabled || e.target.closest?.(UI)) return;
     const id = hitTest(e.clientX, e.clientY);
     if (id) emit('select', id, { x: e.clientX, y: e.clientY });
     else emit('miss');
@@ -124,6 +132,7 @@ export function createInteraction({ camera, reduce, low }) {
   window.addEventListener('pointerdown', onDown, { passive: true });
   window.addEventListener('pointerup', onUp, { passive: true });
   window.addEventListener('pointercancel', onUp, { passive: true });
+  window.addEventListener('click', onClick);
 
   return {
     add,

@@ -84,7 +84,8 @@ export function renderApp(c, links) {
           const body = o.program
             ? ''
             : `<div class="so-body"><strong>${esc(title)}.</strong> ${esc(o.text)}${o.link ? ` ${anchor(c, links, o.link, o.linkLabel)}` : ''}</div>`;
-          return `<li${o.program ? ' class="so-ref"' : ''}><button type="button" class="so-btn btn btn-small" data-hotspot="${esc(o.id)}">${esc(c.scene.inspect)} ${esc(title)}</button>${body}</li>`;
+          const label = o.button || `${c.scene.inspect} ${title}`;
+          return `<li${o.program ? ' class="so-ref"' : ''}><button type="button" class="so-btn btn btn-small" data-hotspot="${esc(o.id)}">${esc(label)}</button>${body}</li>`;
         })
         .join('')}${lantern}</ul>
     </div>`;
@@ -134,7 +135,8 @@ export function renderApp(c, links) {
     'license',
     `<ol class="terms" tabindex="0" aria-label="${esc(S.license.title)}">${S.license.terms
       .map((t) => `<li><strong>${esc(t.title)}.</strong> ${esc(t.text)}</li>`)
-      .join('')}</ol>`,
+      .join('')}</ol>
+     <p class="term-open"><button type="button" class="btn btn-small" data-open-terminal><span class="term-glyph" aria-hidden="true">&gt;_</span> ${esc(c.terminal.open)}</button></p>`,
     backBtn + nextBtn(S.license.primary)
   );
 
@@ -317,6 +319,22 @@ export function renderApp(c, links) {
 
   <button type="button" id="lantern-hud" class="float-ui hud" aria-haspopup="dialog"><span class="hud-icon" aria-hidden="true"></span><span class="hud-text"></span></button>
   <p id="lantern-status" class="visually-hidden" role="status"></p>
+
+  <section id="terminal" class="float-ui term" role="dialog" aria-labelledby="term-title" hidden>
+    <header class="term-bar">
+      <span class="term-glyph" aria-hidden="true">&gt;_</span>
+      <h2 id="term-title">${esc(c.terminal.title)}</h2>
+      <button type="button" class="term-close card-close" aria-label="${esc(c.terminal.close)}">&times;</button>
+    </header>
+    <div class="term-log" role="log" aria-live="polite" aria-label="${esc(c.terminal.outputLabel)}" tabindex="0"></div>
+    <div class="term-sugg" role="group" aria-label="${esc(c.terminal.suggestLabel)}">${c.terminal.commands
+      .map((k) => `<button type="button" class="term-chip" data-cmd="${esc(k.name)}">${esc(k.name)}</button>`)
+      .join('')}</div>
+    <form class="term-form" autocomplete="off">
+      <label for="term-input" class="term-prompt">${esc(c.terminal.prompt)}</label>
+      <input id="term-input" type="text" maxlength="80" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="${esc(c.terminal.inputLabel)}" />
+    </form>
+  </section>
 
   <div id="obj-card" class="float-ui card" role="dialog" aria-labelledby="obj-card-title" tabindex="-1" hidden>
     <button type="button" class="card-close" aria-label="${esc(ui.close)}">&times;</button>
