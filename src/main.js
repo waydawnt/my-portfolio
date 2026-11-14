@@ -2,7 +2,9 @@
 // this adds the installer wizard behaviour and lazy-loads the 3D scene.
 import gsap from 'gsap';
 import content from './content.json';
+import links from './links.json';
 import { initPaths } from './ui/paths.js';
+import { initSceneUI } from './ui/scene-ui.js';
 
 const doc = document.documentElement;
 const $ = (s, r = document) => r.querySelector(s);
@@ -175,9 +177,12 @@ function progress() {
   return i + Math.min(1, Math.max(0, f));
 }
 
+const sceneUI = initSceneUI({ content, links });
+
 let finishCelebrated = false;
 function setStep(i) {
   current = i;
+  sceneUI.close();
   const s = content.steps[ids[i]];
   tbStep.textContent = `${content.ui.step} ${i + 1} ${content.ui.of} ${N}: ${s.nav}`;
   dots.forEach((d, k) => {
@@ -297,6 +302,7 @@ function enterClassic(remember = true) {
   is3D = false;
   doc.classList.remove('mode-3d', 'is-intro');
   world?.stop();
+  sceneUI.close();
   loader.hidden = true;
   $('#uac').hidden = true;
   install.complete();
@@ -335,6 +341,7 @@ async function enter3D({ intro = false, remember = true } = {}) {
       enterClassic(false);
       return;
     }
+    sceneUI.attach(world);
     if (!is3D) return; // switched away while loading
     await new Promise((r) => setTimeout(r, reduce ? 0 : 350));
     world.start();

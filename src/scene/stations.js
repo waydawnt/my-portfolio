@@ -176,6 +176,7 @@ export function buildStations(ctx) {
     inner.position.y = 0.9;
     box.add(inner);
     st.group.add(box);
+    ctx.hot({ id: 'box', node: box, station: st, size: [1.5, 1.3, 1.5], offset: [0, 0.6, 0] });
 
     floatLantern(st, V(-2.1, 2.1, -1.6), 0.8, 0);
     floatLantern(st, V(2.3, 2.8, -2.4), 0.65, 2);
@@ -224,6 +225,7 @@ export function buildStations(ctx) {
     s.position.set(0, 1.0, 0.6);
     mon.add(s);
     st.group.add(mon);
+    ctx.hot({ id: 'monitor', node: mon, station: st, size: [1.7, 1.5, 2.0], offset: [0, 0.75, 0.3], glow: 0x9dffc4 });
     floatLantern(st, V(-2.0, 2.3, -1.8), 0.7, 1);
     st.ticks.push((t) => {
       tex.offset.y = (t * 0.02) % 1;
@@ -275,6 +277,7 @@ export function buildStations(ctx) {
       g.add(holder);
       st.group.add(g);
 
+      ctx.hot({ id: `comp-${id}`, node: holder, station: st, size: [1.25, id === 'games' ? 1.8 : 1.3, 1.25] });
       const it = { level: 0, holder, obj, halo };
       const baseCols = new Map();
       it.apply = () => {
@@ -348,6 +351,7 @@ export function buildStations(ctx) {
     const cap = new THREE.Mesh(new THREE.BoxGeometry(1.75, 0.14, 1.45), dark);
     cap.position.y = beltY + 1.78;
     g.add(cap);
+    ctx.hot({ id: 'machine', node: g, station: st, size: [1.8, 2.7, 1.5], offset: [0, 1.35, 0], tilt: false });
     const holeMat = new THREE.MeshBasicMaterial({ color: 0x05070f });
     for (const sx of [-1, 1]) {
       const hole = new THREE.Mesh(new THREE.PlaneGeometry(0.62, 0.56), holeMat);
@@ -467,7 +471,7 @@ export function buildStations(ctx) {
   // ---------- 5. Installed Programs ----------
   function programs(st) {
     const items = {};
-    const add = (key, x, z, ph, obj, y = 0, pr = 0.6) => {
+    const add = (key, x, z, ph, obj, y = 0, pr = 0.6, hs = [0.85, 1.5, 0.5]) => {
       const g = new THREE.Group();
       g.position.set(x, 0, z);
       if (ph > 0) g.add(pedestal(pr, ph));
@@ -481,6 +485,7 @@ export function buildStations(ctx) {
       g.add(ring);
       st.group.add(g);
       items[key] = { holder, ring, baseY: ph + y, hot: 0 };
+      ctx.hot({ id: `prog-${key}`, node: holder, station: st, size: hs });
       return holder;
     };
 
@@ -489,12 +494,12 @@ export function buildStations(ctx) {
     const lg = glowSprite(WARM, 3.6, low ? 0.55 : 0.42);
     lg.position.y = 0.6;
     lan.add(lg);
-    add('lantern', -2.5, -0.4, 0.3, lan, 0.45);
+    add('lantern', -2.5, -0.4, 0.3, lan, 0.45, 0.6, [0.8, 1.3, 0.8]);
 
     // The Void: arcade cabinet
     const arc = slot('arcade', 2.15, [0.9, 1.0], (m) => setScreen(m, 'Arcade_Screen', loadScreenTexture('tex-void.webp'), 0.8));
     arc.rotation.y = 0.18;
-    add('arcade', -0.95, -1.3, 0.12, arc, 0, 0.85);
+    add('arcade', -0.95, -1.3, 0.12, arc, 0, 0.85, [1.0, 2.2, 1.1]);
 
     // J-Station + JLPT Flashcards: phones
     const phone = (file, ry) => {
@@ -511,7 +516,7 @@ export function buildStations(ctx) {
     const wire = new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(0.62, 1)), new THREE.LineBasicMaterial({ color: 0xffc46b, transparent: true, opacity: 0.7 }));
     art.add(gem, wire);
     art.position.y = 0.75;
-    add('art', 2.75, -1.1, 0.7, art);
+    add('art', 2.75, -1.1, 0.7, art, 0, 0.6, [1.3, 1.4, 1.3]);
 
     st.ticks.push((t) => {
       gem.rotation.set(t * 0.3, t * 0.5, 0);
@@ -540,6 +545,7 @@ export function buildStations(ctx) {
     s.position.set(0, 1.4, 0.5);
     shelf.add(s);
     st.group.add(shelf);
+    ctx.hot({ id: 'bookshelf', node: shelf, station: st, size: [1.9, 2.2, 0.9] });
     floatLantern(st, V(-1.9, 1.5, 0.2), 0.75, 3);
 
     const chars = ['日', '本', '語'].map((ch, i) => {
@@ -569,6 +575,7 @@ export function buildStations(ctx) {
     g.position.set(0, 2.0, 0.6);
     box.add(g);
     st.group.add(box);
+    ctx.hot({ id: 'mailbox', node: box, station: st, size: [0.9, 2.4, 1.2] });
     floatLantern(st, V(1.9, 2.4, -1.4), 0.7, 5);
 
     st.ticks.push(() => {

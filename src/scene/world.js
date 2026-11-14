@@ -7,6 +7,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { manager, loadModel, glowTexture } from './models.js';
 import { buildStations, dirVec } from './stations.js';
+import { createInteraction } from './interact.js';
 
 const FOV = 38;
 
@@ -164,8 +165,10 @@ export async function createWorld({ canvas, low, reduce, labels, onProgress }) {
   updateLanterns(0);
 
   // ---------- stations ----------
-  const ctx = { scene, low, reduce, labels };
+  const interact = createInteraction({ camera, reduce, low });
+  const ctx = { scene, low, reduce, labels, hot: interact.add };
   const stations = buildStations(ctx);
+  interact.setStations(stations);
   const last = stations.length - 1;
 
   // ---------- post-processing (high tier only) ----------
@@ -189,6 +192,7 @@ export async function createWorld({ canvas, low, reduce, labels, onProgress }) {
   let W = 1, H = 1, portrait = false;
   const tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3(), lookA = new THREE.Vector3();
   const camPos = new THREE.Vector3();
+  const sph = new THREE.Spherical();
 
   function stationCam(s, out) {
     // distance that fits the station into the part of the screen not covered by the panel
@@ -233,6 +237,13 @@ export async function createWorld({ canvas, low, reduce, labels, onProgress }) {
     camPos.y += state.intro * 7;
     camPos.z += state.intro * 15;
     lookA.lerpVectors(A.look, B.look, e);
+    if (interact.look.yaw || interact.look.pitch) {
+      // drag-to-look: orbit a little around the subject, within fixed limits
+      sph.setFromVector3(tmpA.copy(camPos).sub(lookA));
+      sph.theta += interact.look.yaw;
+      sph.phi = THREE.MathUtils.clamp(sph.phi - interact.look.pitch, 0.75, 1.56);
+      camPos.setFromSpherical(sph).add(lookA);
+    }
     mouse.sx += (mouse.x - mouse.sx) * 0.05;
     mouse.sy += (mouse.y - mouse.sy) * 0.05;
     camera.position.copy(camPos);
@@ -265,6 +276,7 @@ export async function createWorld({ canvas, low, reduce, labels, onProgress }) {
       starLayers[0].opacity = 0.7 + Math.sin(t * 0.9) * 0.18;
       starLayers[1].opacity = 0.7 + Math.cos(t * 0.6) * 0.18;
     }
+    interact.update(now, dt, state.p);
     updateCamera();
     for (const s of stations) if (s.group.visible) s.update(t, dt);
     if (composer) composer.render(dt);
@@ -320,11 +332,13 @@ export async function createWorld({ canvas, low, reduce, labels, onProgress }) {
     start() {
       if (running) return;
       running = true;
+      interact.setEnabled(true);
       prev = performance.now();
       frame();
     },
     stop() {
       running = false;
+      interact.setEnabled(false);
       cancelAnimationFrame(raf);
     },
     resize,
@@ -340,5 +354,11 @@ export async function createWorld({ canvas, low, reduce, labels, onProgress }) {
       gsap.fromTo(state, { intro: 1 }, { intro: 0, duration: 2.8, ease: 'power3.out' });
     },
     api: (id) => stations.find((s) => s.id === id)?.api ?? {},
+    // scene interaction (see interact.js)
+    on: interact.on,
+    hitTest: interact.hitTest,
+    screenOf: interact.screenOf,
+    setFocused: interact.setFocused,
+    flash: interact.flash,
   };
 }

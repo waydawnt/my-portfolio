@@ -34,7 +34,9 @@
     "loadingHint": "Unpacking lanterns…",
     "todoLink": "link to be added",
     "newTab": "opens in a new tab",
-    "footer": "Built by Vedant Dalvi with Three.js, GSAP and Blender."
+    "footer": "Built by Vedant Dalvi with Three.js, GSAP and Blender.",
+    "sceneHint": "Tip: click or tap the objects in the scene, and drag sideways to look around.",
+    "close": "Close"
   },
   "uac": {
     "window": "Portfolio Account Control",
@@ -536,5 +538,107 @@
         }
       ]
     }
+  },
+  "scene": {
+    "notesTitle": "In the scene",
+    "cardKicker": "In the scene",
+    "inspect": "Inspect:",
+    "objects": [
+      {
+        "id": "box",
+        "step": "welcome",
+        "title": "Package box",
+        "text": "I manage the full packaging lifecycle (MSI and EXE) for enterprise clients, using AdminStudio and InstallShield."
+      },
+      {
+        "id": "monitor",
+        "step": "license",
+        "title": "Retro monitor",
+        "text": "I started learning to code at 17, because I wanted to make my own video games."
+      },
+      {
+        "id": "comp-packaging",
+        "step": "components",
+        "title": "Packaging",
+        "text": "I package MSI and EXE installers with AdminStudio and InstallShield, and write PSAppDeployToolkit wrapper scripts for install logic and user notifications."
+      },
+      {
+        "id": "comp-deployment",
+        "step": "components",
+        "title": "Deployment",
+        "text": "I configure and manage deployments through Intune, including UAT, pilot phases and troubleshooting failures."
+      },
+      {
+        "id": "comp-automation",
+        "step": "components",
+        "title": "Automation",
+        "text": "I built Tampermonkey scripts for ServiceNow (ticket auto-refresh, priority alerts, session keep-alive) and a PowerShell pipeline that handles Exchange Online requests end to end."
+      },
+      {
+        "id": "comp-development",
+        "step": "components",
+        "title": "Development",
+        "text": "Flutter and Dart for Android apps, React, Node.js, MongoDB and Three.js for the web, plus Python, Java and JavaScript."
+      },
+      {
+        "id": "comp-games",
+        "step": "components",
+        "title": "Games and 3D",
+        "text": "Games made with Godot (GDScript) and Unity, and 3D models made with Blender and Maya.",
+        "link": "artstation",
+        "linkLabel": "View on ArtStation"
+      },
+      {
+        "id": "comp-language",
+        "step": "components",
+        "title": "Language",
+        "text": "Japanese: JLPT N4 certified, N3 in progress. Also English (professional), Hindi and Marathi (native)."
+      },
+      {
+        "id": "machine",
+        "step": "installing",
+        "title": "Automation pipeline",
+        "text": "A central PowerShell script scans ServiceNow for Distribution List and Shared Mailbox requests, makes the change in Exchange Online, posts updates to the ticket and closes it."
+      },
+      {
+        "id": "prog-lantern",
+        "step": "programs",
+        "program": "globalWishes"
+      },
+      {
+        "id": "prog-arcade",
+        "step": "programs",
+        "program": "theVoid"
+      },
+      {
+        "id": "prog-phoneA",
+        "step": "programs",
+        "program": "jStation"
+      },
+      {
+        "id": "prog-phoneB",
+        "step": "programs",
+        "program": "jlptFlashcards"
+      },
+      {
+        "id": "prog-art",
+        "step": "programs",
+        "program": "art"
+      },
+      {
+        "id": "bookshelf",
+        "step": "japanese",
+        "title": "Bookshelf",
+        "text": "I became interested in Japanese through anime and films, and started learning it in 2018."
+      },
+      {
+        "id": "mailbox",
+        "step": "finish",
+        "title": "Mailbox",
+        "text": "I am based in Pune, India, and you can reach me by email.",
+        "link": "email",
+        "linkLabel": "Email vedantdalvi05@gmail.com"
+      }
+    ]
   }
 }

@@ -70,6 +70,26 @@ export function renderApp(c, links) {
   const S = c.steps;
   const ui = c.ui;
 
+  // Objects in the 3D scene: keyboard buttons in wizard mode, plain notes in Classic view.
+  const programTitle = (pid) => S.programs.items.find((p) => p.id === pid).title;
+  const sceneList = (id) => {
+    const objs = c.scene.objects.filter((o) => o.step === id);
+    if (!objs.length) return '';
+    const hasNotes = objs.some((o) => !o.program);
+    return `<div class="scene-notes${hasNotes ? '' : ' sn-empty'}">
+      <h3 class="sn-title">${esc(c.scene.notesTitle)}</h3>
+      <ul class="scene-objects" aria-label="${esc(c.scene.notesTitle)}">${objs
+        .map((o) => {
+          const title = o.program ? programTitle(o.program) : o.title;
+          const body = o.program
+            ? ''
+            : `<div class="so-body"><strong>${esc(title)}.</strong> ${esc(o.text)}${o.link ? ` ${anchor(c, links, o.link, o.linkLabel)}` : ''}</div>`;
+          return `<li${o.program ? ' class="so-ref"' : ''}><button type="button" class="so-btn btn btn-small" data-hotspot="${esc(o.id)}">${esc(c.scene.inspect)} ${esc(title)}</button>${body}</li>`;
+        })
+        .join('')}</ul>
+    </div>`;
+  };
+
   const section = (id, body, actions, { h1 = false } = {}) => {
     const i = ids.indexOf(id);
     const s = S[id];
@@ -83,7 +103,7 @@ export function renderApp(c, links) {
           <${tag} id="${id}-title" tabindex="-1">${esc(title)}${s.titleJa ? ` <span class="ja" lang="ja">${esc(s.titleJa)}</span>` : ''}</${tag}>
           ${s.lead ? `<p class="lead">${esc(s.lead)}</p>` : ''}
         </header>
-        <div class="page-body">${body}</div>
+        <div class="page-body">${body}${sceneList(id)}</div>
         ${actions ? `<div class="page-actions">${actions}</div>` : ''}
       </div>
     </section>`;
@@ -101,6 +121,7 @@ export function renderApp(c, links) {
     `<p class="headline">${esc(c.person.headline)}</p>
      <p class="role">${esc(c.person.roleLine)}</p>
      <p>${esc(S.welcome.intro)}</p>
+     <p class="scene-hint">${esc(ui.sceneHint)}</p>
      <dl class="facts">${S.welcome.facts
        .map((f) => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`)
        .join('')}</dl>`,
@@ -286,6 +307,14 @@ export function renderApp(c, links) {
         .join('')}</ol>
       <button type="button" class="btn btn-primary" id="nav-next" data-go="next">${esc(ui.next)}</button>
     </nav>
+  </div>
+
+  <div id="obj-card" class="float-ui card" role="dialog" aria-labelledby="obj-card-title" tabindex="-1" hidden>
+    <button type="button" class="card-close" aria-label="${esc(ui.close)}">&times;</button>
+    <p class="card-kicker"></p>
+    <h3 class="card-title" id="obj-card-title"></h3>
+    <p class="card-text"></p>
+    <p class="card-actions"></p>
   </div>
 
   <canvas id="scene" aria-hidden="true" tabindex="-1"></canvas>`;
