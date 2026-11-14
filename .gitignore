@@ -1,0 +1,11 @@
+node_modules
+dist
+assets-src/export
+*.blend1
+.DS_Store
+check-out
+# Private source material: the original resume PDFs contain a phone number, and the
+# Global Wishes screenshot shows visitor names. Neither should reach a public repo.
+/resume.pdf
+/assets/*.pdf
+/assets/global-wishes.png

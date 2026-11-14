@@ -1,0 +1,27 @@
+{
+  "name": "vedant-setup",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Vedant Setup.exe: personal portfolio of Vedant Dalvi as a 3D installer wizard under a lantern sky.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "models:build": "node scripts/build-models.mjs",
+    "images:build": "node scripts/make-images.mjs"
+  },
+  "dependencies": {
+    "gsap": "^3.15.1",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
+    "draco3dgltf": "^1.5.9",
+    "playwright-core": "^1.65.1",
+    "sharp": "^0.35.5",
+    "vite": "^8.3.8"
+  }
+}

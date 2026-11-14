@@ -1,0 +1,16 @@
+{
+  "_TODO": [
+    "resume: public/resume.pdf is the June resume with the phone number redacted. Replace it with your final resume PDF."
+  ],
+  "site": "https://vedantdalvi.in/",
+  "ogImage": "https://vedantdalvi.in/og-image.png",
+  "email": "mailto:vedantdalvi05@gmail.com",
+  "linkedin": "https://www.linkedin.com/in/vedant-dalvi-profile/",
+  "github": "https://github.com/waydawnt/",
+  "artstation": "https://www.artstation.com/vedant_jpg",
+  "resume": "/resume.pdf",
+  "globalWishes": "https://globalwishes.in",
+  "theVoidVideo": "https://youtu.be/9S4ZA0rcceU",
+  "jStation": "https://play.google.com/store/apps/details?id=com.spawner.j_station",
+  "jlptFlashcards": "https://play.google.com/store/apps/details?id=com.spawner.jlpt_flashcards"
+}

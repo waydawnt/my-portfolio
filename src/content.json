@@ -1,0 +1,234 @@
+{
+  "_TODO": [
+    "CONFIRM career dates: Service Desk / RDS SME from Aug 2023, Application Packaging Engineer since Aug 2024 (some older resumes say Aug 2023).",
+    "CONFIRM J-Station: described as radio streaming only. Add podcasts only if the shipped app supports them.",
+    "CONFIRM JLPT Flashcards: Firebase, spaced repetition and kanji etymology are NOT mentioned because the screenshots do not show them. Add them to steps.programs.items[3] if they are in the shipped app.",
+    "Freelance developer work is omitted until dates are confirmed.",
+    "Final resume PDF: replace public/resume.pdf."
+  ],
+  "meta": {
+    "title": "Vedant Dalvi | Application Packaging Engineer and Developer",
+    "description": "Vedant Setup.exe: the portfolio of Vedant Dalvi, an Application Packaging Engineer in Pune, India, who builds apps, games and 3D web projects by night.",
+    "siteName": "Vedant Setup.exe",
+    "ogAlt": "A glowing software package box floating under a night sky full of paper lanterns.",
+    "themeColor": "#0b1026"
+  },
+  "person": {
+    "name": "Vedant Dalvi",
+    "location": "Pune, India",
+    "headline": "Application engineer by day, builder of worlds by night.",
+    "roleLine": "Application Packaging Engineer · Developer · 3D artist · Game maker"
+  },
+  "ui": {
+    "appTitle": "Vedant Setup.exe",
+    "skip": "Skip to content",
+    "classicView": "Classic view",
+    "immersiveView": "3D view",
+    "resumeShort": "Resume",
+    "back": "Back",
+    "next": "Next",
+    "step": "Step",
+    "of": "of",
+    "stepsNav": "Setup steps",
+    "loading": "Preparing setup",
+    "loadingHint": "Unpacking lanterns…",
+    "todoLink": "link to be added",
+    "newTab": "opens in a new tab",
+    "footer": "Built by Vedant Dalvi with Three.js, GSAP and Blender."
+  },
+  "uac": {
+    "window": "Portfolio Account Control",
+    "question": "Do you want to allow this portfolio to show you around?",
+    "app": "Vedant Setup.exe",
+    "publisher": "Verified publisher: Vedant Dalvi, Pune, India",
+    "origin": "What it is: the story of an application packaging engineer who builds apps, games and 3D worlds by night.",
+    "details": "Told the way he works: as a setup wizard.",
+    "note": "This is a website. Nothing is downloaded or installed on your device.",
+    "yes": "Yes",
+    "no": "No",
+    "noReply": "Understood. Showing you around anyway."
+  },
+  "order": ["welcome", "license", "components", "installing", "programs", "japanese", "finish"],
+  "steps": {
+    "welcome": {
+      "nav": "Welcome",
+      "kicker": "Welcome to the Vedant Setup Wizard",
+      "intro": "This wizard will install one application engineer on your device. Scroll, or click Next, to continue.",
+      "facts": [
+        { "label": "Publisher", "value": "Vedant Dalvi" },
+        { "label": "Location", "value": "Pune, India" },
+        { "label": "Role", "value": "Application Packaging Engineer at Wipro" }
+      ],
+      "primary": "Next"
+    },
+    "license": {
+      "nav": "License",
+      "title": "License Agreement",
+      "lead": "Please read the following terms. They are short, friendly and all true.",
+      "terms": [
+        { "title": "Origin", "text": "I started learning to code at 17, because I wanted to make my own video games." },
+        { "title": "Animation", "text": "I studied animation to bring those game ideas to life: BSc Animation at Fergusson College, Pune, with a CGPA of 9.24." },
+        { "title": "Engineering", "text": "Before that, I completed a Diploma in Computer Engineering at D.Y. Patil School of Engineering (Polytechnic), Pune." },
+        { "title": "Japanese", "text": "I became interested in Japanese through anime and films, and have been learning it since 2018." },
+        { "title": "Present use", "text": "Today I work in enterprise IT at Wipro, and build apps, games and 3D web projects on the side." },
+        { "title": "Warranty", "text": "This software ships with curiosity included. No toolbars are bundled." }
+      ],
+      "primary": "I accept"
+    },
+    "components": {
+      "nav": "Components",
+      "title": "Choose Components",
+      "lead": "Tick the components you want to install. Each one lights up its matching object.",
+      "selectAll": "Select all",
+      "clearAll": "Clear all",
+      "countTemplate": "{n} of {total} components selected",
+      "groups": [
+        { "id": "packaging", "title": "Packaging", "object": "Package box", "skills": ["MSI", "EXE", "AdminStudio", "InstallShield", "PSAppDeployToolkit"] },
+        { "id": "deployment", "title": "Deployment", "object": "Managed phone", "skills": ["Intune", "Azure AD", "Exchange Online"] },
+        { "id": "automation", "title": "Automation", "object": "Gears", "skills": ["PowerShell", "ServiceNow API", "Tampermonkey"] },
+        { "id": "development", "title": "Development", "object": "Retro monitor", "skills": ["Flutter", "React", "Three.js", "Node.js", "MongoDB", "Python", "Java", "Dart"] },
+        { "id": "games", "title": "Games and 3D", "object": "Arcade cabinet", "skills": ["Godot", "Unity", "Blender", "Maya"] },
+        { "id": "language", "title": "Language", "object": "Bookshelf", "skills": ["Japanese", "JLPT N4"] }
+      ],
+      "primary": "Install"
+    },
+    "installing": {
+      "nav": "Installing",
+      "title": "Installing",
+      "lead": "Please wait while Setup installs a career.",
+      "statusIdle": "Ready to install.",
+      "statusPrefix": "Installing:",
+      "statusDone": "All components installed.",
+      "barLabel": "Career installation progress",
+      "replay": "Replay installation",
+      "stages": [
+        {
+          "title": "Service Desk Analyst",
+          "meta": "Wipro Technologies, Pune · from Aug 2023",
+          "text": "Started on the service desk supporting global users: user accounts and Azure AD security groups, Exchange Online distribution lists and shared mailboxes, and operating system, hardware and network issues under strict SLAs."
+        },
+        {
+          "title": "SME",
+          "meta": "Wipro Technologies, Pune · RDS SME · to Aug 2024",
+          "text": "Became a subject matter expert. Built Tampermonkey scripts for ServiceNow (ticket auto-refresh, priority alerts, session keep-alive) and led DSAT analysis, reporting automation and team training."
+        },
+        {
+          "title": "Application Packaging Engineer",
+          "meta": "Wipro Technologies, Pune · Aug 2024 to present",
+          "text": "Manages the full packaging lifecycle (MSI, EXE) for enterprise clients with AdminStudio and InstallShield, writes PSAppDeployToolkit wrapper scripts, and runs Intune deployments through UAT and pilot phases."
+        },
+        {
+          "title": "Developer projects",
+          "meta": "Nights and weekends",
+          "text": "Builds apps, games and 3D web projects on the side: Global Wishes, J-Station, JLPT Flashcards and The Void. They are on the next page."
+        }
+      ],
+      "earlier": "Earlier: Visiting Faculty (internship) at Jagganath Rathi Vocational Guidance & Training Institute, Pune, Aug to Oct 2022, teaching graphic design tools and digital media basics to high school students.",
+      "pipeline": {
+        "title": "Bundled automation: ServiceNow and Exchange pipeline",
+        "tech": "PowerShell · ServiceNow API · Exchange Online",
+        "steps": [
+          { "title": "Scan", "text": "A central PowerShell script scans ServiceNow for new requests about Distribution Lists and Shared Mailboxes." },
+          { "title": "Process", "text": "It reads the ticket details, signs in to Exchange Online securely, and creates or modifies the list or mailbox with its memberships and permissions." },
+          { "title": "Close", "text": "It posts technical updates back to the ticket and closes it automatically when done, removing manual effort." }
+        ],
+        "sceneLabels": { "in": "ServiceNow", "machine": "PowerShell", "side": "Exchange Online", "out": "Closed", "open": "REQ", "closed": "DONE" }
+      },
+      "primary": "Next"
+    },
+    "programs": {
+      "nav": "Programs",
+      "title": "Installed Programs",
+      "lead": "The following programs were installed successfully.",
+      "builtWith": "Built with",
+      "items": [
+        {
+          "id": "globalWishes",
+          "object": "lantern",
+          "icon": "lantern",
+          "title": "Global Wishes",
+          "type": "Web app",
+          "tech": "React, Three.js, MongoDB · started Feb 2026",
+          "text": "Release a Lantern: type a wish, and a glowing lantern floats into a shared night sky in real time. A live counter on the site shows how many wishes are in the sky.",
+          "links": [{ "label": "Open globalwishes.in", "link": "globalWishes" }]
+        },
+        {
+          "id": "theVoid",
+          "object": "arcade",
+          "icon": "void",
+          "title": "The Void",
+          "type": "Game · final-year university project",
+          "tech": "Godot 4",
+          "text": "A 2.5D platformer set in a post-apocalyptic city at dusk, inspired by games like The Last Night and Replaced. I was the lead developer and wrote the game logic.",
+          "links": [{ "label": "Watch the video", "link": "theVoidVideo" }]
+        },
+        {
+          "id": "jStation",
+          "object": "phoneA",
+          "icon": "jstation",
+          "title": "J-Station",
+          "type": "Android app",
+          "tech": "Flutter",
+          "text": "A Japanese internet radio streaming app. Browse stations from Japan, tap to play, and keep listening with a Now Playing screen and a mini player.",
+          "links": [{ "label": "Get it on Google Play", "link": "jStation" }]
+        },
+        {
+          "id": "jlptFlashcards",
+          "object": "phoneB",
+          "icon": "flashcards",
+          "title": "JLPT Flashcards",
+          "type": "Android app",
+          "tech": "Flutter",
+          "text": "Vocabulary flashcards for JLPT levels N5 to N1. Tap a card to reveal the meaning, hear the pronunciation, and track progress with a daily streak.",
+          "links": [{ "label": "Get it on Google Play", "link": "jlptFlashcards" }]
+        },
+        {
+          "id": "art",
+          "object": "art",
+          "icon": "cube",
+          "title": "3D art and games",
+          "type": "Models and small games",
+          "tech": "Blender, Maya, Unity, Godot",
+          "text": "3D models made with Blender and Maya, plus games made with Unity and Godot: classics like Ping Pong and Snake, 2D platformers, a 3D first-person shooter and 3D horror games.",
+          "links": [{ "label": "View on ArtStation", "link": "artstation" }]
+        }
+      ],
+      "primary": "Next"
+    },
+    "japanese": {
+      "nav": "Japanese",
+      "title": "Language Pack: Japanese",
+      "titleJa": "日本語",
+      "lead": "An optional component that has been installing since 2018.",
+      "text": "I became interested in Japanese through anime and films, and have been learning it since 2018. Two of my apps came out of that: one for listening and one for vocabulary.",
+      "jlptTitle": "JLPT progress",
+      "levels": [
+        { "level": "JLPT N4", "status": "Certified", "state": "done" },
+        { "level": "JLPT N3", "status": "In progress", "state": "wip" }
+      ],
+      "appsTitle": "Related apps",
+      "apps": [
+        { "label": "J-Station: Japanese internet radio", "link": "jStation" },
+        { "label": "JLPT Flashcards: vocabulary for N5 to N1", "link": "jlptFlashcards" }
+      ],
+      "primary": "Finish"
+    },
+    "finish": {
+      "nav": "Finish",
+      "title": "Installation complete.",
+      "lead": "Vedant Dalvi has been installed on your device. No restart required.",
+      "text": "Click Launch to say hello, download the resume, or release a lantern into the shared sky at Global Wishes.",
+      "launch": "Launch",
+      "launchHint": "Email Vedant",
+      "resume": "Download Resume",
+      "lantern": "Release a Lantern",
+      "contactTitle": "Contact",
+      "contacts": [
+        { "label": "Email", "text": "vedantdalvi05@gmail.com", "link": "email" },
+        { "label": "LinkedIn", "text": "linkedin.com/in/vedant-dalvi-profile", "link": "linkedin" },
+        { "label": "GitHub", "text": "github.com/waydawnt", "link": "github" },
+        { "label": "ArtStation", "text": "artstation.com/vedant_jpg", "link": "artstation" }
+      ]
+    }
+  }
+}
