@@ -7,6 +7,7 @@ import { initPaths } from './ui/paths.js';
 import { initSceneUI } from './ui/scene-ui.js';
 import { initLanterns } from './ui/lanterns.js';
 import { initTerminal } from './ui/terminal.js';
+import { initPackager } from './ui/packager.js';
 
 const doc = document.documentElement;
 const $ = (s, r = document) => r.querySelector(s);
@@ -193,6 +194,9 @@ const terminal = initTerminal({
 sceneUI.handle('monitor', (id, { from }) => { sceneUI.close(); terminal.open(from); });
 $('[data-open-terminal]').addEventListener('click', (e) => terminal.open(e.currentTarget));
 
+const packager = initPackager({ content, reduce, getWorld: () => (is3D ? world : null) });
+sceneUI.handle('pkg', () => { sceneUI.close(); packager.focus(); });
+
 let finishCelebrated = false;
 function setStep(i) {
   current = i;
@@ -212,7 +216,7 @@ function setStep(i) {
   if (!world) return;
   world.api('welcome').setOpen?.(i > 0);
   if (ids[i] === 'components') groups.forEach((fs) => syncGroup(fs));
-  if (ids[i] === 'installing') install.play();
+  if (ids[i] === 'installing') { install.play(); packager.sync(); }
   const fin = world.api('finish');
   fin.setFlag?.(ids[i] === 'finish');
   if (ids[i] === 'finish' && !finishCelebrated && fin.release) {

@@ -197,6 +197,22 @@ export function renderApp(c, links) {
        <ol class="pipe">${I.pipeline.steps
          .map((p) => `<li><strong>${esc(p.title)}</strong><span class="detail">${esc(p.text)}</span></li>`)
          .join('')}</ol>
+     </div>
+     <div class="packager" data-state="idle">
+       <h3>${esc(I.packager.title)}</h3>
+       <p class="meta">${esc(I.packager.hint)}</p>
+       <div class="pk-row">
+         <ul class="pk-items">${I.packager.items
+           .map((it) => `<li><button type="button" class="pk-item" data-item="${esc(it.id)}" aria-pressed="false"><strong>${esc(it.title)}</strong><small>${esc(it.text)}</small></button></li>`)
+           .join('')}</ul>
+         <div class="pk-box" data-drop><span class="pk-lid" aria-hidden="true"></span><span class="pk-label">${esc(I.packager.boxLabel)}</span><span class="pk-count">0 / ${I.packager.items.length}</span></div>
+       </div>
+       <p class="pk-status" role="status"></p>
+       <div class="bar pk-bar" role="progressbar" aria-label="${esc(I.packager.barLabel)}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="bar-fill"></span></div>
+       <p class="pk-actions">
+         <button type="button" class="btn btn-primary" data-build disabled>${esc(I.packager.build)}</button>
+         <button type="button" class="btn" data-pk-reset hidden>${esc(I.packager.again)}</button>
+       </p>
      </div>`,
     backBtn + nextBtn(I.primary)
   );

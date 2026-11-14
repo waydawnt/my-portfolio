@@ -467,18 +467,64 @@ export function buildStations(ctx) {
       g.add(m);
       tickets.push(m);
     }
+    // ---- "Build a package": a box on a side table that seals, hops onto the belt and rides it
+    const pk = { lid: 1.7, fill: 0, onBelt: false, scale: 1 };
+    const tablePos = V(-2.75, 0.5, 1.3);
+    const table = pedestal(0.42, 0.5);
+    table.position.set(tablePos.x, 0, tablePos.z);
+    g.add(table);
+    let pkLid = null;
+    const pkg = slot('box', 0.42, [0.5, 0.5], (m) => { pkLid = m.getObjectByName('Box_Lid'); });
+    pkg.position.copy(tablePos);
+    pkg.rotation.y = 0.35;
+    const pkGlow = glowSprite(0xffc46b, 1.5, 0);
+    pkGlow.position.y = 0.3;
+    pkg.add(pkGlow);
+    g.add(pkg);
+    ctx.hot({ id: 'pkg', node: pkg, station: st, size: [0.75, 0.7, 0.75], offset: [0, 0.3, 0] });
+    const dur = (d) => (ctx.reduce ? 0 : d);
+    st.api.pkg = {
+      setItems: (f) => gsap.to(pk, { fill: f, duration: dur(0.4), overwrite: 'auto' }),
+      seal: () => gsap.to(pk, { lid: 0, duration: dur(0.6), ease: 'power2.in', overwrite: 'auto' }),
+      ship(onDone) {
+        gsap.killTweensOf(pkg.position);
+        pk.lid = ctx.reduce ? 0 : pk.lid;
+        const tl = gsap.timeline({ onComplete: onDone });
+        // hop onto the belt, ride it through the machine, then hand over at the far end
+        tl.to(pkg.rotation, { y: 0, duration: dur(0.5) }, 0)
+          .to(pkg.position, { x: -2.9, z: 0, duration: dur(0.7), ease: 'power1.inOut' }, 0)
+          .to(pkg.position, { y: beltY + 0.55, duration: dur(0.35), ease: 'power2.out' }, 0)
+          .to(pkg.position, { y: beltY, duration: dur(0.35), ease: 'power2.in' }, dur(0.35))
+          .call(() => { pk.onBelt = true; })
+          .to(pkg.position, { x: 2.85, duration: dur(6.2), ease: 'none' });
+        if (!ctx.reduce) tl.to(pk, { scale: 0, duration: 0.35, ease: 'back.in(2)' });
+      },
+      reset() {
+        gsap.killTweensOf([pk, pkg.position, pkg.rotation]);
+        Object.assign(pk, { lid: 1.7, fill: 0, onBelt: false, scale: 1 });
+        pkg.position.copy(tablePos);
+        pkg.rotation.y = 0.35;
+      },
+    };
+
     const place = (t) => {
       for (const m of tickets) {
         const x = ((m.userData.off + t * 0.45) % span) - span / 2;
         m.position.set(x, beltY + 0.2, 0);
         m.material = x > 0 ? matClosed : matOpen;
-        m.visible = Math.abs(x) > 0.55;
+        // hidden inside the machine, and wherever the package is riding the belt
+        m.visible = Math.abs(x) > 0.55 && !(pk.onBelt && pk.scale > 0.05 && Math.abs(x - pkg.position.x) < 0.7);
       }
     };
     place(0);
 
     st.ticks.push((t) => {
       place(t);
+      if (pkLid) pkLid.rotation.x = -pk.lid;
+      pkg.scale.setScalar(Math.max(pk.scale, 0.001));
+      const shipped = pk.onBelt && pkg.position.x > 0.8;
+      pkGlow.material.color.setHex(shipped ? 0x8dffb0 : 0xffc46b);
+      pkGlow.material.opacity = shipped ? 0.5 : pk.fill * 0.5;
       spinCogs(t * 1.1);
       winMat.color.setRGB(1, 0.7, 0.33).multiplyScalar(0.8 + Math.sin(t * 3) * 0.12);
       cloud.position.y = beltY + 3.25 + Math.sin(t * 0.7) * 0.06;

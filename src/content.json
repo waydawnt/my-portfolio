@@ -387,7 +387,42 @@
           "closed": "DONE"
         }
       },
-      "primary": "Next"
+      "primary": "Next",
+      "packager": {
+        "title": "Try it: build a package",
+        "hint": "Drag the three items onto the box, or tap them. Then press Build.",
+        "boxLabel": "Package box",
+        "items": [
+          {
+            "id": "app",
+            "title": "App files",
+            "text": "The MSI or EXE being packaged."
+          },
+          {
+            "id": "config",
+            "title": "Config",
+            "text": "Web configurations and driver components."
+          },
+          {
+            "id": "wrapper",
+            "title": "Wrapper script",
+            "text": "PSAppDeployToolkit install logic and user notifications."
+          }
+        ],
+        "build": "Build",
+        "again": "Build another",
+        "barLabel": "Package build progress",
+        "statusEmpty": "The box is empty. Add all three items.",
+        "statusSome": "{n} of {total} items in the box.",
+        "statusReady": "All three items are in. Press Build.",
+        "phases": [
+          "Validating the package…",
+          "Wrapping with PSAppDeployToolkit…",
+          "Sealing the box…"
+        ],
+        "statusShipping": "Sealed. On its way down the conveyor to Intune: UAT first, then pilot.",
+        "statusDone": "Package delivered. That is the lifecycle: package, wrap, test, deploy."
+      }
     },
     "programs": {
       "nav": "Programs",
@@ -600,6 +635,13 @@
         "step": "installing",
         "title": "Automation pipeline",
         "text": "A central PowerShell script scans ServiceNow for Distribution List and Shared Mailbox requests, makes the change in Exchange Online, posts updates to the ticket and closes it."
+      },
+      {
+        "id": "pkg",
+        "step": "installing",
+        "title": "Empty package box",
+        "text": "Fill it with app files, config and a wrapper script, then press Build to seal it and send it down the conveyor.",
+        "button": "Build a package (go to the build panel)"
       },
       {
         "id": "prog-lantern",
