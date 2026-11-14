@@ -2,6 +2,7 @@
 // this adds the installer wizard behaviour and lazy-loads the 3D scene.
 import gsap from 'gsap';
 import content from './content.json';
+import { initPaths } from './ui/paths.js';
 
 const doc = document.documentElement;
 const $ = (s, r = document) => r.querySelector(s);
@@ -367,6 +368,7 @@ window.addEventListener('resize', () => { if (is3D) { measure(); onScroll(); } }
 if ('ResizeObserver' in window) new ResizeObserver(() => { if (is3D) { measure(); onScroll(); } }).observe($('#main'));
 
 syncCount();
+initPaths({ content, onSelection: () => { groups.forEach((fs) => syncGroup(fs)); syncCount(); } });
 const wantClassic = params.has('classic') || (store.get('view') === 'classic' && !params.has('3d'));
 if (wantClassic || !hasWebGL()) {
   if (!hasWebGL()) toggle.hidden = true;

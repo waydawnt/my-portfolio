@@ -48,16 +48,33 @@
     "no": "No",
     "noReply": "Understood. Showing you around anyway."
   },
-  "order": ["welcome", "license", "components", "installing", "programs", "japanese", "finish"],
+  "order": [
+    "welcome",
+    "license",
+    "components",
+    "installing",
+    "programs",
+    "japanese",
+    "finish"
+  ],
   "steps": {
     "welcome": {
       "nav": "Welcome",
       "kicker": "Welcome to the Vedant Setup Wizard",
       "intro": "This wizard will install one application engineer on your device. Scroll, or click Next, to continue.",
       "facts": [
-        { "label": "Publisher", "value": "Vedant Dalvi" },
-        { "label": "Location", "value": "Pune, India" },
-        { "label": "Role", "value": "Application Packaging Engineer at Wipro" }
+        {
+          "label": "Publisher",
+          "value": "Vedant Dalvi"
+        },
+        {
+          "label": "Location",
+          "value": "Pune, India"
+        },
+        {
+          "label": "Role",
+          "value": "Application Packaging Engineer at Wipro"
+        }
       ],
       "primary": "Next"
     },
@@ -66,31 +83,249 @@
       "title": "License Agreement",
       "lead": "Please read the following terms. They are short, friendly and all true.",
       "terms": [
-        { "title": "Origin", "text": "I started learning to code at 17, because I wanted to make my own video games." },
-        { "title": "Animation", "text": "I studied animation to bring those game ideas to life: BSc Animation at Fergusson College, Pune, with a CGPA of 9.24." },
-        { "title": "Engineering", "text": "Before that, I completed a Diploma in Computer Engineering at D.Y. Patil School of Engineering (Polytechnic), Pune." },
-        { "title": "Japanese", "text": "I became interested in Japanese through anime and films, and have been learning it since 2018." },
-        { "title": "Present use", "text": "Today I work in enterprise IT at Wipro, and build apps, games and 3D web projects on the side." },
-        { "title": "Warranty", "text": "This software ships with curiosity included. No toolbars are bundled." }
+        {
+          "title": "Origin",
+          "text": "I started learning to code at 17, because I wanted to make my own video games."
+        },
+        {
+          "title": "Animation",
+          "text": "I studied animation to bring those game ideas to life: BSc Animation at Fergusson College, Pune, with a CGPA of 9.24."
+        },
+        {
+          "title": "Engineering",
+          "text": "Before that, I completed a Diploma in Computer Engineering at D.Y. Patil School of Engineering (Polytechnic), Pune."
+        },
+        {
+          "title": "Japanese",
+          "text": "I became interested in Japanese through anime and films, and have been learning it since 2018."
+        },
+        {
+          "title": "Present use",
+          "text": "Today I work in enterprise IT at Wipro, and build apps, games and 3D web projects on the side."
+        },
+        {
+          "title": "Warranty",
+          "text": "This software ships with curiosity included. No toolbars are bundled."
+        }
       ],
       "primary": "I accept"
     },
     "components": {
       "nav": "Components",
       "title": "Choose Components",
-      "lead": "Tick the components you want to install. Each one lights up its matching object.",
+      "lead": "Pick an install type, then tick the components you want. Each one lights up its matching object.",
       "selectAll": "Select all",
       "clearAll": "Clear all",
       "countTemplate": "{n} of {total} components selected",
       "groups": [
-        { "id": "packaging", "title": "Packaging", "object": "Package box", "skills": ["MSI", "EXE", "AdminStudio", "InstallShield", "PSAppDeployToolkit"] },
-        { "id": "deployment", "title": "Deployment", "object": "Managed phone", "skills": ["Intune", "Azure AD", "Exchange Online"] },
-        { "id": "automation", "title": "Automation", "object": "Gears", "skills": ["PowerShell", "ServiceNow API", "Tampermonkey"] },
-        { "id": "development", "title": "Development", "object": "Retro monitor", "skills": ["Flutter", "React", "Three.js", "Node.js", "MongoDB", "Python", "Java", "Dart"] },
-        { "id": "games", "title": "Games and 3D", "object": "Arcade cabinet", "skills": ["Godot", "Unity", "Blender", "Maya"] },
-        { "id": "language", "title": "Language", "object": "Bookshelf", "skills": ["Japanese", "JLPT N4"] }
+        {
+          "id": "packaging",
+          "title": "Packaging",
+          "object": "Package box",
+          "skills": [
+            "MSI",
+            "EXE",
+            "AdminStudio",
+            "InstallShield",
+            "PSAppDeployToolkit"
+          ]
+        },
+        {
+          "id": "deployment",
+          "title": "Deployment",
+          "object": "Managed phone",
+          "skills": [
+            "Intune",
+            "Azure AD",
+            "Exchange Online"
+          ]
+        },
+        {
+          "id": "automation",
+          "title": "Automation",
+          "object": "Gears",
+          "skills": [
+            "PowerShell",
+            "ServiceNow API",
+            "Tampermonkey"
+          ]
+        },
+        {
+          "id": "development",
+          "title": "Development",
+          "object": "Retro monitor",
+          "skills": [
+            "Flutter",
+            "React",
+            "Three.js",
+            "Node.js",
+            "MongoDB",
+            "Python",
+            "Java",
+            "Dart"
+          ]
+        },
+        {
+          "id": "games",
+          "title": "Games and 3D",
+          "object": "Arcade cabinet",
+          "skills": [
+            "Godot",
+            "Unity",
+            "Blender",
+            "Maya"
+          ]
+        },
+        {
+          "id": "language",
+          "title": "Language",
+          "object": "Bookshelf",
+          "skills": [
+            "Japanese",
+            "JLPT N4"
+          ]
+        }
       ],
-      "primary": "Install"
+      "primary": "Install",
+      "install": {
+        "legend": "Install type",
+        "modes": [
+          {
+            "id": "typical",
+            "label": "Typical",
+            "hint": "Everything, in the standard order."
+          },
+          {
+            "id": "custom",
+            "label": "Custom",
+            "hint": "Tailored to why you are here."
+          },
+          {
+            "id": "minimal",
+            "label": "Minimal",
+            "hint": "Headlines only."
+          }
+        ],
+        "question": "What brings you here?",
+        "reasons": [
+          {
+            "id": "it",
+            "label": "Hiring for IT / packaging"
+          },
+          {
+            "id": "creative",
+            "label": "Hiring for games / 3D"
+          },
+          {
+            "id": "looking",
+            "label": "Just looking around"
+          }
+        ],
+        "customPrompt": "Custom install: choose what brings you here.",
+        "chip": "Install path:",
+        "badge": "Recommended for you",
+        "showAll": "Show full details",
+        "minimalNote": "Minimal install: details are hidden.",
+        "paths": {
+          "typical": {
+            "label": "Typical",
+            "summary": "Typical install: everything, in the standard order.",
+            "select": "all"
+          },
+          "minimal": {
+            "label": "Minimal",
+            "summary": "Minimal install: later pages show headlines only. Use “Show full details” on any page to expand.",
+            "select": [
+              "packaging"
+            ]
+          },
+          "it": {
+            "label": "IT / packaging",
+            "summary": "Custom install for IT and packaging: the Wipro roles, packaging and the automation pipeline come first.",
+            "select": [
+              "packaging",
+              "deployment",
+              "automation"
+            ],
+            "groups": [
+              "packaging",
+              "deployment",
+              "automation",
+              "development",
+              "games",
+              "language"
+            ],
+            "featureGroups": [
+              "packaging",
+              "deployment",
+              "automation"
+            ],
+            "featureStages": [
+              2
+            ],
+            "pipelineFirst": true,
+            "programs": [
+              "globalWishes",
+              "jStation",
+              "jlptFlashcards",
+              "theVoid",
+              "art"
+            ],
+            "contacts": [
+              "email",
+              "linkedin",
+              "github",
+              "artstation"
+            ]
+          },
+          "creative": {
+            "label": "Games / 3D",
+            "summary": "Custom install for games and 3D: The Void, Global Wishes and 3D art come first.",
+            "select": [
+              "games",
+              "development"
+            ],
+            "groups": [
+              "games",
+              "development",
+              "language",
+              "automation",
+              "packaging",
+              "deployment"
+            ],
+            "featureGroups": [
+              "games",
+              "development"
+            ],
+            "featureStages": [
+              3
+            ],
+            "programs": [
+              "theVoid",
+              "globalWishes",
+              "art",
+              "jStation",
+              "jlptFlashcards"
+            ],
+            "featurePrograms": [
+              "theVoid",
+              "globalWishes",
+              "art"
+            ],
+            "contacts": [
+              "email",
+              "artstation",
+              "github",
+              "linkedin"
+            ]
+          },
+          "looking": {
+            "label": "Just looking",
+            "summary": "Custom install, just looking around: everything, in the standard order.",
+            "select": "all"
+          }
+        }
+      }
     },
     "installing": {
       "nav": "Installing",
@@ -128,11 +363,27 @@
         "title": "Bundled automation: ServiceNow and Exchange pipeline",
         "tech": "PowerShell · ServiceNow API · Exchange Online",
         "steps": [
-          { "title": "Scan", "text": "A central PowerShell script scans ServiceNow for new requests about Distribution Lists and Shared Mailboxes." },
-          { "title": "Process", "text": "It reads the ticket details, signs in to Exchange Online securely, and creates or modifies the list or mailbox with its memberships and permissions." },
-          { "title": "Close", "text": "It posts technical updates back to the ticket and closes it automatically when done, removing manual effort." }
+          {
+            "title": "Scan",
+            "text": "A central PowerShell script scans ServiceNow for new requests about Distribution Lists and Shared Mailboxes."
+          },
+          {
+            "title": "Process",
+            "text": "It reads the ticket details, signs in to Exchange Online securely, and creates or modifies the list or mailbox with its memberships and permissions."
+          },
+          {
+            "title": "Close",
+            "text": "It posts technical updates back to the ticket and closes it automatically when done, removing manual effort."
+          }
         ],
-        "sceneLabels": { "in": "ServiceNow", "machine": "PowerShell", "side": "Exchange Online", "out": "Closed", "open": "REQ", "closed": "DONE" }
+        "sceneLabels": {
+          "in": "ServiceNow",
+          "machine": "PowerShell",
+          "side": "Exchange Online",
+          "out": "Closed",
+          "open": "REQ",
+          "closed": "DONE"
+        }
       },
       "primary": "Next"
     },
@@ -150,7 +401,12 @@
           "type": "Web app",
           "tech": "React, Three.js, MongoDB · started Feb 2026",
           "text": "Release a Lantern: type a wish, and a glowing lantern floats into a shared night sky in real time. A live counter on the site shows how many wishes are in the sky.",
-          "links": [{ "label": "Open globalwishes.in", "link": "globalWishes" }]
+          "links": [
+            {
+              "label": "Open globalwishes.in",
+              "link": "globalWishes"
+            }
+          ]
         },
         {
           "id": "theVoid",
@@ -160,7 +416,12 @@
           "type": "Game · final-year university project",
           "tech": "Godot 4",
           "text": "A 2.5D platformer set in a post-apocalyptic city at dusk, inspired by games like The Last Night and Replaced. I was the lead developer and wrote the game logic.",
-          "links": [{ "label": "Watch the video", "link": "theVoidVideo" }]
+          "links": [
+            {
+              "label": "Watch the video",
+              "link": "theVoidVideo"
+            }
+          ]
         },
         {
           "id": "jStation",
@@ -170,7 +431,12 @@
           "type": "Android app",
           "tech": "Flutter",
           "text": "A Japanese internet radio streaming app. Browse stations from Japan, tap to play, and keep listening with a Now Playing screen and a mini player.",
-          "links": [{ "label": "Get it on Google Play", "link": "jStation" }]
+          "links": [
+            {
+              "label": "Get it on Google Play",
+              "link": "jStation"
+            }
+          ]
         },
         {
           "id": "jlptFlashcards",
@@ -180,7 +446,12 @@
           "type": "Android app",
           "tech": "Flutter",
           "text": "Vocabulary flashcards for JLPT levels N5 to N1. Tap a card to reveal the meaning, hear the pronunciation, and track progress with a daily streak.",
-          "links": [{ "label": "Get it on Google Play", "link": "jlptFlashcards" }]
+          "links": [
+            {
+              "label": "Get it on Google Play",
+              "link": "jlptFlashcards"
+            }
+          ]
         },
         {
           "id": "art",
@@ -190,7 +461,12 @@
           "type": "Models and small games",
           "tech": "Blender, Maya, Unity, Godot",
           "text": "3D models made with Blender and Maya, plus games made with Unity and Godot: classics like Ping Pong and Snake, 2D platformers, a 3D first-person shooter and 3D horror games.",
-          "links": [{ "label": "View on ArtStation", "link": "artstation" }]
+          "links": [
+            {
+              "label": "View on ArtStation",
+              "link": "artstation"
+            }
+          ]
         }
       ],
       "primary": "Next"
@@ -203,13 +479,27 @@
       "text": "I became interested in Japanese through anime and films, and have been learning it since 2018. Two of my apps came out of that: one for listening and one for vocabulary.",
       "jlptTitle": "JLPT progress",
       "levels": [
-        { "level": "JLPT N4", "status": "Certified", "state": "done" },
-        { "level": "JLPT N3", "status": "In progress", "state": "wip" }
+        {
+          "level": "JLPT N4",
+          "status": "Certified",
+          "state": "done"
+        },
+        {
+          "level": "JLPT N3",
+          "status": "In progress",
+          "state": "wip"
+        }
       ],
       "appsTitle": "Related apps",
       "apps": [
-        { "label": "J-Station: Japanese internet radio", "link": "jStation" },
-        { "label": "JLPT Flashcards: vocabulary for N5 to N1", "link": "jlptFlashcards" }
+        {
+          "label": "J-Station: Japanese internet radio",
+          "link": "jStation"
+        },
+        {
+          "label": "JLPT Flashcards: vocabulary for N5 to N1",
+          "link": "jlptFlashcards"
+        }
       ],
       "primary": "Finish"
     },
@@ -224,10 +514,26 @@
       "lantern": "Release a Lantern",
       "contactTitle": "Contact",
       "contacts": [
-        { "label": "Email", "text": "vedantdalvi05@gmail.com", "link": "email" },
-        { "label": "LinkedIn", "text": "linkedin.com/in/vedant-dalvi-profile", "link": "linkedin" },
-        { "label": "GitHub", "text": "github.com/waydawnt", "link": "github" },
-        { "label": "ArtStation", "text": "artstation.com/vedant_jpg", "link": "artstation" }
+        {
+          "label": "Email",
+          "text": "vedantdalvi05@gmail.com",
+          "link": "email"
+        },
+        {
+          "label": "LinkedIn",
+          "text": "linkedin.com/in/vedant-dalvi-profile",
+          "link": "linkedin"
+        },
+        {
+          "label": "GitHub",
+          "text": "github.com/waydawnt",
+          "link": "github"
+        },
+        {
+          "label": "ArtStation",
+          "text": "artstation.com/vedant_jpg",
+          "link": "artstation"
+        }
       ]
     }
   }

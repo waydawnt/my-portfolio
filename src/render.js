@@ -92,6 +92,8 @@ export function renderApp(c, links) {
   const nextBtn = (label) =>
     `<button type="button" class="btn btn-primary" data-go="next">${esc(label)}</button>`;
   const backBtn = `<button type="button" class="btn" data-go="back">${esc(ui.back)}</button>`;
+  // only shown on the Minimal install path
+  const showAll = `<span class="minimal-note"><span>${esc(S.components.install.minimalNote)}</span> <button type="button" class="btn btn-small" data-show-all>${esc(S.components.install.showAll)}</button></span>`;
 
   // 1. Welcome
   const welcome = section(
@@ -119,7 +121,20 @@ export function renderApp(c, links) {
   const total = S.components.groups.reduce((a, g) => a + g.skills.length, 0);
   const components = section(
     'components',
-    `<div class="comp-tools">
+    `<fieldset class="install-type">
+       <legend>${esc(S.components.install.legend)}</legend>
+       <div class="seg">${S.components.install.modes
+         .map((m, i) => `<label class="seg-opt"><input type="radio" name="install-mode" value="${esc(m.id)}"${i === 0 ? ' checked' : ''} /><span><strong>${esc(m.label)}</strong><small>${esc(m.hint)}</small></span></label>`)
+         .join('')}</div>
+     </fieldset>
+     <fieldset class="install-reason" hidden>
+       <legend>${esc(S.components.install.question)}</legend>
+       <div class="seg seg-stack">${S.components.install.reasons
+         .map((r) => `<label class="seg-opt"><input type="radio" name="install-reason" value="${esc(r.id)}" /><span><strong>${esc(r.label)}</strong></span></label>`)
+         .join('')}</div>
+     </fieldset>
+     <p class="install-summary" role="status"></p>
+     <div class="comp-tools">
        <button type="button" class="btn btn-small" data-select-all data-label-all="${esc(S.components.selectAll)}" data-label-none="${esc(S.components.clearAll)}">${esc(S.components.selectAll)}</button>
        <p class="comp-count" role="status" data-template="${esc(S.components.countTemplate)}" data-total="${total}">${esc(
          S.components.countTemplate.replace('{n}', '0').replace('{total}', total)
@@ -127,7 +142,7 @@ export function renderApp(c, links) {
      </div>
      <div class="groups">${S.components.groups
        .map(
-         (g) => `<fieldset class="group" data-group="${esc(g.id)}">
+         (g) => `<fieldset class="group" data-group="${esc(g.id)}" data-badge="${esc(S.components.install.badge)}">
            <legend><span class="lamp" aria-hidden="true"></span>${esc(g.title)} <span class="obj">${esc(g.object)}</span></legend>
            <div class="chips">${g.skills
              .map((sk) => `<label class="chk"><input type="checkbox" name="${esc(g.id)}" value="${esc(sk)}" /><span>${esc(sk)}</span></label>`)
@@ -142,22 +157,22 @@ export function renderApp(c, links) {
   const I = S.installing;
   const installing = section(
     'installing',
-    `<div class="install" data-status-idle="${esc(I.statusIdle)}" data-status-prefix="${esc(I.statusPrefix)}" data-status-done="${esc(I.statusDone)}">
+    `${showAll}<div class="install" data-status-idle="${esc(I.statusIdle)}" data-status-prefix="${esc(I.statusPrefix)}" data-status-done="${esc(I.statusDone)}">
        <p class="install-status"><span class="status-text">${esc(I.statusDone)}</span> <span class="status-pct" aria-hidden="true">100%</span></p>
        <div class="bar" role="progressbar" aria-label="${esc(I.barLabel)}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><span class="bar-fill"></span></div>
        <ol class="stages">${I.stages
          .map(
-           (st) => `<li class="stage is-done"><h3>${esc(st.title)}</h3><p class="meta">${esc(st.meta)}</p><p>${esc(st.text)}</p></li>`
+           (st, k) => `<li class="stage is-done" data-stage="${k}" data-badge="${esc(S.components.install.badge)}"><h3>${esc(st.title)}</h3><p class="meta">${esc(st.meta)}</p><p class="detail">${esc(st.text)}</p></li>`
          )
          .join('')}</ol>
-       <p class="earlier">${esc(I.earlier)}</p>
+       <p class="earlier detail">${esc(I.earlier)}</p>
        <button type="button" class="btn btn-small" data-replay>${esc(I.replay)}</button>
      </div>
-     <div class="pipeline">
+     <div class="pipeline" data-badge="${esc(S.components.install.badge)}">
        <h3>${esc(I.pipeline.title)}</h3>
        <p class="meta">${esc(I.pipeline.tech)}</p>
        <ol class="pipe">${I.pipeline.steps
-         .map((p) => `<li><strong>${esc(p.title)}</strong><span>${esc(p.text)}</span></li>`)
+         .map((p) => `<li><strong>${esc(p.title)}</strong><span class="detail">${esc(p.text)}</span></li>`)
          .join('')}</ol>
      </div>`,
     backBtn + nextBtn(I.primary)
@@ -167,14 +182,14 @@ export function renderApp(c, links) {
   const P = S.programs;
   const programs = section(
     'programs',
-    `<ul class="programs">${P.items
+    `${showAll}<ul class="programs">${P.items
       .map(
-        (it) => `<li class="program" data-obj="${esc(it.object)}">
+        (it) => `<li class="program" data-obj="${esc(it.object)}" data-id="${esc(it.id)}" data-badge="${esc(S.components.install.badge)}">
           ${programIcon(it)}
           <div class="p-body">
             <h3>${esc(it.title)}</h3>
             <p class="meta">${esc(it.type)} · ${esc(P.builtWith)} ${esc(it.tech)}</p>
-            <p>${esc(it.text)}</p>
+            <p class="detail">${esc(it.text)}</p>
             <p class="p-links">${it.links.map((l) => anchor(c, links, l.link, l.label, 'link-btn')).join('')}</p>
           </div>
         </li>`
@@ -187,7 +202,7 @@ export function renderApp(c, links) {
   const J = S.japanese;
   const japanese = section(
     'japanese',
-    `<p>${esc(J.text)}</p>
+    `${showAll}<p class="detail">${esc(J.text)}</p>
      <h3>${esc(J.jlptTitle)}</h3>
      <ul class="jlpt">${J.levels
        .map(
@@ -211,7 +226,7 @@ export function renderApp(c, links) {
      </div>
      <h3>${esc(F.contactTitle)}</h3>
      <dl class="contacts">${F.contacts
-       .map((k) => `<div><dt>${esc(k.label)}</dt><dd>${anchor(c, links, k.link, k.text)}</dd></div>`)
+       .map((k) => `<div data-key="${esc(k.link)}"><dt>${esc(k.label)}</dt><dd>${anchor(c, links, k.link, k.text)}</dd></div>`)
        .join('')}</dl>`,
     backBtn
   );
@@ -251,6 +266,7 @@ export function renderApp(c, links) {
         <span class="tb-icon" aria-hidden="true"></span>
         <span class="tb-title">${esc(ui.appTitle)}</span>
         <span class="tb-step" id="tb-step"></span>
+        <span class="tb-path" id="tb-path"></span>
       </div>
       <div class="tb-right">
         ${links.resume ? `<a class="btn btn-small tb-resume" href="${esc(links.resume)}" download="Vedant_Dalvi_Resume.pdf">${esc(ui.resumeShort)}</a>` : ''}
