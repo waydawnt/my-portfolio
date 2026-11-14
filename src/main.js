@@ -5,6 +5,7 @@ import content from './content.json';
 import links from './links.json';
 import { initPaths } from './ui/paths.js';
 import { initSceneUI } from './ui/scene-ui.js';
+import { initLanterns } from './ui/lanterns.js';
 
 const doc = document.documentElement;
 const $ = (s, r = document) => r.querySelector(s);
@@ -178,6 +179,7 @@ function progress() {
 }
 
 const sceneUI = initSceneUI({ content, links });
+const lanterns = initLanterns({ content, links, sceneUI });
 
 let finishCelebrated = false;
 function setStep(i) {
@@ -342,6 +344,7 @@ async function enter3D({ intro = false, remember = true } = {}) {
       return;
     }
     sceneUI.attach(world);
+    lanterns.attach(world);
     if (!is3D) return; // switched away while loading
     await new Promise((r) => setTimeout(r, reduce ? 0 : 350));
     world.start();

@@ -9,6 +9,8 @@ const rad = THREE.MathUtils.degToRad;
 export const dirVec = (yaw, pitch) => V(Math.sin(rad(yaw)) * Math.cos(rad(pitch)), Math.sin(rad(pitch)), Math.cos(rad(yaw)) * Math.cos(rad(pitch)));
 
 const WARM = 0xffa64a;
+// where each scene's collectible lantern floats (station-local), inside the framed area on any screen
+const LANTERN_SPOTS = [V(1.75, 0.5, 0.6), V(1.6, 2.3, -0.8), V(-2.7, 2.6, -1.6), V(2.9, 3.4, -0.6), V(0.3, 2.9, -1.8), V(-1.7, 0.45, 1.0), V(-1.4, 2.9, -0.5)];
 const DIM = new THREE.Color(0.1, 0.13, 0.26);
 const WHITE = new THREE.Color(1, 1, 1);
 
@@ -140,6 +142,7 @@ export function buildStations(ctx) {
         st.built = true;
         group.add(platform(d.r));
         builders[d.id](st);
+        factLantern(st, LANTERN_SPOTS[i]);
       },
       update(t, dt) {
         for (const f of st.ticks) f(t, dt);
@@ -151,6 +154,26 @@ export function buildStations(ctx) {
   return stations;
 
   // ---------- helpers bound to ctx ----------
+  /** The collectible lantern of a scene: smaller than the others, with a pale blue twinkle. */
+  function factLantern(st, pos) {
+    const i = st.index;
+    const h = slot('lantern', 0.46, [0.3, 0.3]);
+    h.position.copy(pos);
+    const halo = glowSprite(0xbfe6ff, 1.9, 0.4);
+    halo.position.y = 0.25;
+    h.add(halo);
+    st.group.add(h);
+    ctx.hot({ id: `lantern-${i}`, node: h, station: st, size: [0.75, 0.85, 0.75], offset: [0, 0.25, 0], glow: 0xffffff, glowScale: 2.6 });
+    const s = { got: ctx.collected.has(i) ? 1 : 0 };
+    st.ticks.push((t) => {
+      h.position.y = pos.y + Math.sin(t * 0.9 + i) * 0.08 + s.got * 0.3;
+      h.rotation.y = t * 0.3 + s.got * Math.PI * 2;
+      halo.material.color.setHex(s.got > 0.5 ? 0x9dffc0 : 0xbfe6ff);
+      halo.material.opacity = s.got > 0.5 ? 0.5 : 0.34 + Math.sin(t * 2.4 + i) * 0.14;
+    });
+    st.api.collectLantern = () => gsap.to(s, { got: 1, duration: ctx.reduce ? 0 : 0.9, ease: 'back.out(2)' });
+  }
+
   function floatLantern(st, pos, height, phase = 0) {
     const h = slot('lantern', height, [height * 0.55, height * 0.55]);
     h.position.copy(pos);

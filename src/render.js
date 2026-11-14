@@ -74,8 +74,8 @@ export function renderApp(c, links) {
   const programTitle = (pid) => S.programs.items.find((p) => p.id === pid).title;
   const sceneList = (id) => {
     const objs = c.scene.objects.filter((o) => o.step === id);
-    if (!objs.length) return '';
     const hasNotes = objs.some((o) => !o.program);
+    const lantern = `<li class="so-ref"><button type="button" class="so-btn btn btn-small" data-hotspot="lantern-${ids.indexOf(id)}">${esc(c.lanterns.collect)}</button></li>`;
     return `<div class="scene-notes${hasNotes ? '' : ' sn-empty'}">
       <h3 class="sn-title">${esc(c.scene.notesTitle)}</h3>
       <ul class="scene-objects" aria-label="${esc(c.scene.notesTitle)}">${objs
@@ -86,7 +86,7 @@ export function renderApp(c, links) {
             : `<div class="so-body"><strong>${esc(title)}.</strong> ${esc(o.text)}${o.link ? ` ${anchor(c, links, o.link, o.linkLabel)}` : ''}</div>`;
           return `<li${o.program ? ' class="so-ref"' : ''}><button type="button" class="so-btn btn btn-small" data-hotspot="${esc(o.id)}">${esc(c.scene.inspect)} ${esc(title)}</button>${body}</li>`;
         })
-        .join('')}</ul>
+        .join('')}${lantern}</ul>
     </div>`;
   };
 
@@ -297,6 +297,12 @@ export function renderApp(c, links) {
 
     <main id="main">
       ${welcome}${license}${components}${installing}${programs}${japanese}${finish}
+      <section class="lantern-facts" aria-labelledby="lf-title">
+        <div class="page">
+          <header class="page-head"><h2 id="lf-title">${esc(c.lanterns.classicTitle)}</h2><p class="lead">${esc(c.lanterns.classicLead)}</p></header>
+          <div class="page-body"><ol class="lf-list">${c.lanterns.facts.map((f) => `<li>${esc(f)}</li>`).join('')}</ol></div>
+        </div>
+      </section>
       <p class="site-foot">${esc(ui.footer)}</p>
     </main>
 
@@ -308,6 +314,9 @@ export function renderApp(c, links) {
       <button type="button" class="btn btn-primary" id="nav-next" data-go="next">${esc(ui.next)}</button>
     </nav>
   </div>
+
+  <button type="button" id="lantern-hud" class="float-ui hud" aria-haspopup="dialog"><span class="hud-icon" aria-hidden="true"></span><span class="hud-text"></span></button>
+  <p id="lantern-status" class="visually-hidden" role="status"></p>
 
   <div id="obj-card" class="float-ui card" role="dialog" aria-labelledby="obj-card-title" tabindex="-1" hidden>
     <button type="button" class="card-close" aria-label="${esc(ui.close)}">&times;</button>

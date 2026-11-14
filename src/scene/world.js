@@ -166,7 +166,7 @@ export async function createWorld({ canvas, low, reduce, labels, onProgress }) {
 
   // ---------- stations ----------
   const interact = createInteraction({ camera, reduce, low });
-  const ctx = { scene, low, reduce, labels, hot: interact.add };
+  const ctx = { scene, low, reduce, labels, hot: interact.add, collected: new Set() };
   const stations = buildStations(ctx);
   interact.setStations(stations);
   const last = stations.length - 1;
@@ -354,6 +354,10 @@ export async function createWorld({ canvas, low, reduce, labels, onProgress }) {
       gsap.fromTo(state, { intro: 1 }, { intro: 0, duration: 2.8, ease: 'power3.out' });
     },
     api: (id) => stations.find((s) => s.id === id)?.api ?? {},
+    collectLantern(i) {
+      ctx.collected.add(i);
+      stations[i]?.api.collectLantern?.();
+    },
     // scene interaction (see interact.js)
     on: interact.on,
     hitTest: interact.hitTest,

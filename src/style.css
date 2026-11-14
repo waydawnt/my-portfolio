@@ -318,6 +318,25 @@ html.mode-3d #main, html.mode-3d #scene { touch-action: pan-y pinch-zoom; }
 html.scene-hot #main { cursor: pointer; }
 html.scene-dragging, html.scene-dragging #main { cursor: grabbing; user-select: none; -webkit-user-select: none; }
 
+/* ---------- Hidden lanterns ---------- */
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.lantern-facts { padding: 28px 0 0; }
+.lf-list { list-style: decimal; padding-left: 22px; display: grid; gap: 6px; }
+html.mode-3d .lantern-facts { display: none; }
+.hud { display: none; }
+html.mode-3d:not(.is-intro) .hud {
+  display: inline-flex; align-items: center; gap: 7px;
+  position: fixed; top: 56px; right: max(12px, env(safe-area-inset-right)); z-index: 15;
+  padding: 5px 11px 5px 8px; border-radius: 99px; cursor: pointer;
+  font: 500 12.5px/1.3 var(--font); color: var(--text);
+  background: rgba(7, 11, 28, 0.72); border: 1px solid var(--line);
+}
+.hud:hover { border-color: var(--line-strong); background: rgba(20, 28, 60, 0.9); }
+.hud-icon { width: 9px; height: 12px; border-radius: 3px 3px 2px 2px; background: #bfe6ff; box-shadow: 0 0 8px #9fd0ff; }
+.hud.is-complete { border-color: var(--ok); }
+.hud.is-complete .hud-icon { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
+@media (max-width: 760px) { html.mode-3d:not(.is-intro) .hud { top: 52px; right: 8px; font-size: 12px; background: rgba(7, 11, 28, 0.94); } }
+
 /* Classic view hides wizard-only controls */
 .wizard-foot, [data-go], [data-replay], #scene { display: none; }
 html:not(.mode-3d) .page-actions { display: none; }

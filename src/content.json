@@ -640,5 +640,31 @@
         "linkLabel": "Email vedantdalvi05@gmail.com"
       }
     ]
+  },
+  "lanterns": {
+    "hudLabel": "Hidden lanterns:",
+    "hud": "{n} of {total} found",
+    "announce": "Lantern collected. {n} of {total} found.",
+    "collect": "Collect the hidden lantern",
+    "collected": "Hidden lantern (collected): read its fact",
+    "cardKicker": "Hidden lantern · {n} of {total} found",
+    "cardTitle": "Lantern fact {n}",
+    "listTitle": "Hidden lanterns",
+    "listHint": "One small lantern in each scene glows pale blue. Click or tap it, or use the “Collect the hidden lantern” button on each page.",
+    "notFound": "Not found yet.",
+    "allTitle": "All seven lanterns found",
+    "secret": "Secret message: thank you for looking this closely. If that is how you look at everything, I would like to hear from you.",
+    "secretLink": "Email Vedant",
+    "classicTitle": "Seven lantern facts",
+    "classicLead": "In the 3D view, these facts are hidden inside seven pale blue lanterns in the sky.",
+    "facts": [
+      "I speak English, Hindi and Marathi, and I am learning Japanese.",
+      "From Aug to Oct 2022 I was visiting faculty (an internship), teaching graphic design tools and digital media basics to high school students.",
+      "My Diploma in Computer Engineering ran from 2016 to 2019, and I finished with 75%.",
+      "Besides The Void, I have made classics like Ping Pong and Snake, 2D platformers, a 3D first-person shooter and 3D horror games.",
+      "I also have some knowledge of Unreal Engine.",
+      "Older projects of mine also used Kotlin, Express and Office 365.",
+      "J-Station has soft, neumorphic style buttons and a mini player at the bottom of the screen."
+    ]
   }
 }
