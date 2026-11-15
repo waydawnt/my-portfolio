@@ -756,5 +756,29 @@
       "{cmd} : The term '{cmd}' is not recognized as the name of a cmdlet on this portfolio.",
       "Nothing was run. Try Get-Help, or click a command below."
     ]
+  },
+  "register": {
+    "window": "Registration",
+    "question": "Register this copy to:",
+    "placeholder": "Your name",
+    "note": "Optional. Your name stays in this browser tab and is never sent anywhere.",
+    "submit": "Register",
+    "skip": "Skip",
+    "guest": "Guest",
+    "thanks": "Thanks, {name}.",
+    "cardTitle": "Your licence card",
+    "cardHeading": "Licence card",
+    "registeredTo": "Registered to",
+    "keyLabel": "Souvenir key",
+    "site": "vedantdalvi.in",
+    "disclaimer": "A souvenir drawn in your browser. The key is made from the name and the year, and it is not a real product key.",
+    "cardFooter": "Souvenir licence · not a real product key",
+    "changeLabel": "Name on the card",
+    "update": "Update",
+    "updated": "Card updated for {name}.",
+    "download": "Download licence card (PNG)",
+    "downloaded": "Licence card saved as a PNG.",
+    "downloadFailed": "This browser could not save the image.",
+    "fileName": "vedant-setup-licence.png"
   }
 }

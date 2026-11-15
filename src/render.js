@@ -1,6 +1,8 @@
 // Pure string templates shared by the Vite build (static HTML) — no DOM access here.
 // All text comes from content.json, all URLs from links.json.
 
+import { licenceKey } from './licence-key.js';
+
 const esc = (s) =>
   String(s ?? '')
     .replace(/&/g, '&amp;')
@@ -255,9 +257,12 @@ export function renderApp(c, links) {
 
   // 7. Finish
   const F = S.finish;
+  const R = c.register;
+  const [thanksA, thanksB = ''] = R.thanks.split('{name}');
   const finish = section(
     'finish',
-    `<p>${esc(F.text)}</p>
+    `<p class="thanks">${esc(thanksA)}<strong data-reg-name>${esc(R.guest)}</strong>${esc(thanksB)}</p>
+     <p>${esc(F.text)}</p>
      <div class="finish-actions">
        <a class="btn btn-primary" id="launch" href="${esc(links.email)}">${esc(F.launch)} <span class="btn-sub">${esc(F.launchHint)}</span></a>
        ${links.resume ? `<a class="btn" href="${esc(links.resume)}" download="Vedant_Dalvi_Resume.pdf">${esc(F.resume)}</a>` : `<span class="todo-link">${esc(F.resume)} <em>(${esc(ui.todoLink)})</em></span>`}
@@ -266,7 +271,26 @@ export function renderApp(c, links) {
      <h3>${esc(F.contactTitle)}</h3>
      <dl class="contacts">${F.contacts
        .map((k) => `<div data-key="${esc(k.link)}"><dt>${esc(k.label)}</dt><dd>${anchor(c, links, k.link, k.text)}</dd></div>`)
-       .join('')}</dl>`,
+       .join('')}</dl>
+     <div class="licence">
+       <h3>${esc(R.cardTitle)}</h3>
+       <div class="lic-card">
+         <p class="lic-brand"><span class="tb-icon" aria-hidden="true"></span>${esc(ui.appTitle)}<span class="lic-kind">${esc(R.cardHeading)}</span></p>
+         <p class="lic-label">${esc(R.registeredTo)}</p>
+         <p class="lic-name" data-reg-name>${esc(R.guest)}</p>
+         <p class="lic-label">${esc(R.keyLabel)}</p>
+         <p class="lic-key" data-reg-key>${esc(licenceKey(R.guest, new Date().getFullYear()))}</p>
+         <p class="lic-site">${esc(R.site)}</p>
+       </div>
+       <p class="meta">${esc(R.disclaimer)}</p>
+       <form class="lic-form" autocomplete="off" hidden>
+         <label for="lic-name">${esc(R.changeLabel)}</label>
+         <input id="lic-name" type="text" maxlength="40" autocomplete="off" spellcheck="false" placeholder="${esc(R.placeholder)}" />
+         <button type="submit" class="btn btn-small">${esc(R.update)}</button>
+       </form>
+       <p class="lic-actions"><button type="button" class="btn" data-lic-download hidden>${esc(R.download)}</button></p>
+       <p class="lic-status meta" role="status"></p>
+     </div>`,
     backBtn
   );
 
@@ -296,6 +320,23 @@ export function renderApp(c, links) {
         <button type="button" class="btn btn-primary" data-uac="yes">${esc(U.yes)}</button>
         <button type="button" class="btn" data-uac="no">${esc(U.no)}</button>
       </div>
+    </div>
+  </div>
+
+  <div id="register" class="overlay" hidden>
+    <div class="uac-box" role="dialog" aria-modal="true" aria-labelledby="reg-q" aria-describedby="reg-note" tabindex="-1">
+      <p class="uac-bar">${esc(R.window)}</p>
+      <form autocomplete="off">
+        <div class="uac-main">
+          <label class="uac-q" id="reg-q" for="reg-name">${esc(R.question)}</label>
+          <input id="reg-name" class="reg-input" type="text" maxlength="40" autocomplete="off" spellcheck="false" placeholder="${esc(R.placeholder)}" />
+          <p class="uac-note" id="reg-note">${esc(R.note)}</p>
+        </div>
+        <div class="uac-actions">
+          <button type="submit" class="btn btn-primary">${esc(R.submit)}</button>
+          <button type="button" class="btn" data-reg-skip>${esc(R.skip)}</button>
+        </div>
+      </form>
     </div>
   </div>
 

@@ -36,6 +36,7 @@ for (const v of views) {
   await page.screenshot({ path: `${out}/${v.name}-0-uac.png` });
   await page.click('[data-uac="no"]');
   await page.waitForSelector('#uac', { state: 'hidden' });
+  await page.click('[data-reg-skip]'); // the 'Register this copy to' prompt
   await page.waitForTimeout(4000);
 
   const n = await page.locator('.step').count();

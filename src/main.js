@@ -8,6 +8,7 @@ import { initSceneUI } from './ui/scene-ui.js';
 import { initLanterns } from './ui/lanterns.js';
 import { initTerminal } from './ui/terminal.js';
 import { initPackager } from './ui/packager.js';
+import { initRegister } from './ui/register.js';
 
 const doc = document.documentElement;
 const $ = (s, r = document) => r.querySelector(s);
@@ -270,14 +271,14 @@ function hideOverlay(el) {
   });
 }
 
-/** The fake UAC prompt. Yes, No and Escape all start the site. */
+/** The fake UAC prompt. Yes, No and Escape all start the site. (Fades use opacity, not visibility, so focus() works at once.) */
 function uacPrompt() {
   const uac = $('#uac');
   const box = $('.uac-box', uac);
   const btns = $$('[data-uac]', uac);
   const reply = $('.uac-reply', uac);
   uac.hidden = false;
-  if (!reduce) gsap.from(box, { y: 24, scale: 0.94, autoAlpha: 0, duration: 0.45, ease: 'back.out(1.6)' });
+  if (!reduce) gsap.from(box, { y: 24, scale: 0.94, opacity: 0, duration: 0.45, ease: 'back.out(1.6)' });
   btns[0].focus();
   return new Promise((resolve) => {
     let closing = false;
@@ -285,7 +286,7 @@ function uacPrompt() {
       if (closing) return;
       closing = true;
       setTimeout(async () => {
-        uac.removeEventListener('keydown', onKey);
+        document.removeEventListener('keydown', onKey);
         await hideOverlay(uac);
         resolve();
       }, delay);
@@ -305,10 +306,12 @@ function uacPrompt() {
         btns[(i + (e.shiftKey ? btns.length - 1 : 1)) % btns.length].focus();
       }
     };
-    uac.addEventListener('keydown', onKey);
+    document.addEventListener('keydown', onKey);
     btns.forEach((b) => b.addEventListener('click', () => answer(b.dataset.uac === 'yes'), { once: true }));
   });
 }
+
+const register = initRegister({ content, reduce, hideOverlay });
 
 // ---------------------------------------------------------------- view modes
 function setToggleLabel() {
@@ -325,6 +328,7 @@ function enterClassic(remember = true) {
   terminal.close();
   loader.hidden = true;
   $('#uac').hidden = true;
+  $('#register').hidden = true;
   install.complete();
   tbStep.textContent = '';
   setToggleLabel();
@@ -379,11 +383,14 @@ async function enter3D({ intro = false, remember = true } = {}) {
   world.setProgress(p, true);
   setStep(Math.round(p));
 
-  if (intro) await uacPrompt();
+  if (intro) {
+    await uacPrompt();
+    if (is3D) await register.prompt();
+  }
   doc.classList.remove('is-intro');
   if (intro && Math.round(p) === 0) {
     world.intro();
-    if (!reduce) gsap.from('#welcome .page', { y: 30, autoAlpha: 0, duration: 0.9, delay: 0.5, ease: 'power3.out', clearProps: 'all' });
+    if (!reduce) gsap.from('#welcome .page', { y: 30, opacity: 0, duration: 0.9, delay: 0.5, ease: 'power3.out', clearProps: 'all' });
     $('#welcome-title').focus({ preventScroll: true });
   }
 }

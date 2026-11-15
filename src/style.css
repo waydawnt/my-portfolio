@@ -423,6 +423,34 @@ html.mode-3d .term-open { display: block; }
 }
 @media (max-width: 420px) { .pk-row { grid-template-columns: 1fr 96px; } }
 
+/* ---------- Registered to you: prompt + licence card ---------- */
+label.uac-q { display: block; }
+.reg-input, #lic-name {
+  width: 100%; min-height: 42px; padding: 8px 12px; font: 16px/1.3 var(--font); color: var(--text);
+  background: rgba(0, 0, 0, 0.3); border: 1px solid var(--line-strong); border-radius: 6px;
+}
+.reg-input::placeholder, #lic-name::placeholder { color: #9aa3c7; }
+.uac-box:focus { outline: none; }
+.thanks { font-size: 1.1rem; color: var(--accent-strong); }
+.thanks strong { color: var(--text); overflow-wrap: anywhere; }
+.licence { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 10px; }
+.lic-card {
+  display: grid; gap: 2px; padding: 16px 18px; border-radius: 10px; border: 2px solid var(--accent);
+  background:
+    radial-gradient(circle at 88% 18%, rgba(255, 170, 80, 0.3), transparent 42%),
+    linear-gradient(135deg, #070b1c, #1b2350);
+}
+.lic-brand { display: flex; align-items: center; gap: 8px; font-weight: 600; margin-bottom: 10px; }
+.lic-kind { margin-left: auto; color: var(--accent-strong); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; }
+.lic-label { color: var(--muted); font-size: 12.5px; }
+.lic-name { font-size: clamp(1.25rem, 4.6vw, 1.7rem); font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; margin-bottom: 8px; }
+.lic-key { font: 700 clamp(0.9rem, 3.6vw, 1.1rem)/1.3 var(--mono); color: var(--accent-strong); overflow-wrap: anywhere; margin-bottom: 8px; }
+.lic-site { font-weight: 600; font-size: 14px; }
+.lic-form { display: grid; grid-template-columns: 1fr auto; gap: 6px 8px; align-items: center; }
+.lic-form label { grid-column: 1 / -1; color: var(--muted); font-size: 14px; }
+.lic-form .btn { min-height: 42px; }
+.lic-status:empty { display: none; }
+
 /* Classic view hides wizard-only controls */
 .wizard-foot, [data-go], [data-replay], #scene { display: none; }
 html:not(.mode-3d) .page-actions { display: none; }
